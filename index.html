@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Will you be my Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fce4ec;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 70px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .cute-face {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            margin: 0 auto 30px;
+        }
+
+        .face {
+            width: 80px;
+            height: 75px;
+            background: #f5c17b;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Ears */
+        .ear {
+            width: 25px;
+            height: 25px;
+            background: #f5c17b;
+            border-radius: 50%;
+            position: absolute;
+            top: -5px;
+        }
+
+        .ear.left {
+            left: 5px;
+        }
+
+        .ear.right {
+            right: 5px;
+        }
+
+        .ear-inner {
+            width: 12px;
+            height: 12px;
+            background: #f8a5b5;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Eyes */
+        .eyes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .eye {
+            width: 6px;
+            height: 6px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        /* Nose */
+        .nose {
+            width: 8px;
+            height: 6px;
+            background: #e88a9e;
+            border-radius: 50%;
+            position: absolute;
+            top: 42px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Cheeks */
+        .cheeks {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 45px;
+            left: 12px;
+            right: 12px;
+        }
+
+        .cheek {
+            width: 12px;
+            height: 8px;
+            background: rgba(248, 165, 181, 0.6);
+            border-radius: 50%;
+        }
+
+        /* Heart */
+        .heart {
+            position: absolute;
+            top: -15px;
+            right: -5px;
+            font-size: 28px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-10deg);
+            }
+
+            50% {
+                transform: translateY(-5px) rotate(-10deg);
+            }
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 35px;
+        }
+
+        .button-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 45px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b9d, #ec407a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.3);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background: white;
+            color: #666;
+            border: 2px solid #ddd;
+            padding: 12px 35px;
+            position: absolute;
+            left: 55%;
+            top: 0;
+        }
+
+        .btn-no:hover {
+            background: #f5f5f5;
+        }
+
+        .shy-text {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Celebration Section */
+        .celebration {
+            display: none;
+        }
+
+        .celebration.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .celebration h2 {
+            font-size: 1.8rem;
+            color: #ec407a;
+            margin: 20px 0 10px;
+        }
+
+        .celebration p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-section {
+            display: block;
+        }
+
+        .question-section.hide {
+            display: none;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <!-- Question Section -->
+        <div class="question-section" id="questionSection">
+            <div class="cute-face">
+                <div class="heart">💕</div>
+                <div class="face">
+                    <div class="ear left">
+                        <div class="ear-inner"></div>
+                    </div>
+                    <div class="ear right">
+                        <div class="ear-inner"></div>
+                    </div>
+                    <div class="eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="nose"></div>
+                    <div class="cheeks">
+                        <div class="cheek"></div>
+                        <div class="cheek"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h1>will you be my valentine?</h1>
+
+            <div class="button-container" id="buttonContainer">
+                <button class="btn btn-yes" onclick="sayYes()">Yes</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
+
+            <p class="shy-text">*No* seems a bit shy 🐹</p>
+        </div>
+
+        <!-- Celebration Section -->
+        <div class="celebration" id="celebration">
+            <div class="cute-face">
+                <div class="heart">💕</div>
+                <div class="face">
+                    <div class="ear left">
+                        <div class="ear-inner"></div>
+                    </div>
+                    <div class="ear right">
+                        <div class="ear-inner"></div>
+                    </div>
+                    <div class="eyes">
+                        <div class="eye"></div>
+                        <div class="eye"></div>
+                    </div>
+                    <div class="nose"></div>
+                    <div class="cheeks">
+                        <div class="cheek"></div>
+                        <div class="cheek"></div>
+                    </div>
+                </div>
+            </div>
+            <h2>Yay! 🎉</h2>
+            <p>You made me so happy! 💕</p>
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjJxdjM0NnJlMTdvenFvdWZlM3ByM3A4Z2Zlc3ZoYzVmZGhqOXg2YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cXblnKXr2BQOaYnTni/giphy.gif"
+                    alt="Celebration">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const buttonContainer = document.getElementById('buttonContainer');
+
+        // Make the No button run away
+        function moveNoButton() {
+            const containerRect = buttonContainer.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            const maxX = containerRect.width - btnRect.width - 10;
+            const maxY = containerRect.height - btnRect.height;
+
+            const randomX = Math.max(10, Math.random() * maxX);
+            const randomY = Math.random() * maxY;
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Event listeners for the No button
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('click', moveNoButton);
+        noBtn.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Say Yes function
+        function sayYes() {
+            document.getElementById('questionSection').classList.add('hide');
+            document.getElementById('celebration').classList.add('show');
+            createConfetti();
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#ff4777', '#fce4ec', '#f8bbd9', '#ffd700', '#ff69b4'];
+
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+
+</html>
